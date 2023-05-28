@@ -1,12 +1,12 @@
 package Domain.Repository;
 
-import java.util.List;
+import java.util.UUID;
 
 public interface RepositoryInterface <E>{
     public void create(E entity);
-    public List<E> listAll();
-    public void update(E entity);
+    public void listAll();
+    public void update(UUID id, E entity);
     public void search(String name);
-    public void delete(String name);
+    public void delete(UUID id);
 
 }

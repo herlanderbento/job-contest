@@ -2,12 +2,10 @@ package Domain.ValueObject;
 
 public class Address {
     private String state;
-    private String city;
     private String address;
 
-    public Address(String state, String city, String address) {
+    public Address(String state, String address) {
         this.state = state;
-        this.city = city;
         this.address = address;
     }
 
@@ -19,16 +17,16 @@ public class Address {
         this.state = state;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getAddress() {
         return address;
+    }
+
+    @Override
+    public String toString() {
+        return "Address = [" +
+                "state: '" + state + '\'' +
+                ", address: '" + address + '\'' +
+                ']';
     }
 
     public void setAddress(String address) {

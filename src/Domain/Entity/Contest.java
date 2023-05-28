@@ -2,6 +2,7 @@ package Domain.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Contest{
@@ -11,8 +12,8 @@ public class Contest{
     private int quantityVacancies;
     private List<Applicant> applicants;
 
-    public Contest(String name, String type, int quantityVacancies) {
-        this.id = UUID.randomUUID();
+    public Contest(UUID id, String name, String type, int quantityVacancies) {
+        this.id = id;
         this.name = name;
         this.type = type;
         this.quantityVacancies = quantityVacancies;
@@ -64,9 +65,8 @@ public class Contest{
         applicants.add(applicant);
     }
 
-    public void deleteApplicants(int id) {
-        applicants.removeIf(entity -> entity.getId() == id);
+    public void deleteApplicants(String name) {
+        applicants.removeIf(entity -> Objects.equals(entity.getName(), name));
     }
-
 
 }

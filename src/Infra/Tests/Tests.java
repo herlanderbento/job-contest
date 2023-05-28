@@ -5,6 +5,7 @@ import Domain.Entity.PublicContest;
 import Infra.Repositories.ContestRepository;
 
 import java.util.Scanner;
+import java.util.UUID;
 
 public class Tests {
     public static void main(String[] args){
@@ -14,97 +15,110 @@ public class Tests {
         boolean run = true;
         while (run){
             System.out.println("=== Menu ===");
-            System.out.println("1. Registrar Concurso");
-            System.out.println("2. Consultar Concurso");
-            System.out.println("3. Atualizar Concurso");
-            System.out.println("4. Remover Concurso");
-            System.out.println("5. Ver Lista de Concursos");
-            System.out.println("6. Contar Concursos Públicos");
-            System.out.println("7. Contar Concursos Internos");
-            System.out.println("8. Sair");
-            System.out.print("Escolha uma opção: ");
+            System.out.println("1. Create Contest");
+            System.out.println("2. Search Contest");
+            System.out.println("3. Update Contest");
+            System.out.println("4. Remove Contest");
+            System.out.println("5. View the List of Contests");
+            System.out.println("6. Count Public Contests");
+            System.out.println("7. Count Internal Contests");
+            System.out.println("8. View the List of Applicants");
+            System.out.println("9. Exit");
+            System.out.print("Select an option: ");
             int option = scanner.nextInt();
             scanner.nextLine();
             String contestType = "";
             switch (option){
                 case 1:
-                    System.out.print("Nome do concurso: ");
+                    UUID uuid = UUID.randomUUID();
+                    System.out.print("Name contest: ");
                     String contestName = scanner.nextLine();
-                    System.out.print("Tipo do concurso (Concurso Público/Concurso Interno): ");
+                    System.out.print("Type of tender (Public Contest/Internal Contest): ");
                     contestType = scanner.nextLine();
-                    System.out.print("Quantidade de vagas: ");
+                    System.out.print("Number of vacancies: ");
                     int quantityVacancies = scanner.nextInt();
                     scanner.nextLine();
 
-                    if(contestType.equalsIgnoreCase("Concurso Público")){
-                        System.out.print("Número de questões: ");
+                    if(contestType.equalsIgnoreCase("Public Contest")){
+                        System.out.print("Number of questions: ");
                         int numberQuestion = scanner.nextInt();
                         scanner.nextLine();
 
-                        PublicContest publicContest = new PublicContest(contestName, contestType, quantityVacancies, numberQuestion);
+                        PublicContest publicContest = new PublicContest(uuid, contestName, contestType, quantityVacancies, numberQuestion);
                         contestRepository.create(publicContest);
 
-                    }else if (contestType.equalsIgnoreCase("Concurso Interno")){
-                        System.out.print("Número de questões: ");
+                    }else if (contestType.equalsIgnoreCase("Internal Contest")){
+                        System.out.print("Number of questions: ");
                         int numberQuestion = scanner.nextInt();
-                        InternalContest internalContest = new InternalContest(contestName, contestType, quantityVacancies, numberQuestion);
+                        InternalContest internalContest = new InternalContest(uuid, contestName, contestType, quantityVacancies, numberQuestion);
                         contestRepository.create(internalContest);
                     }else {
-                        System.out.println("Tipo de concurso inválido.");
+                        System.out.println("Invalid contest type.");
                     }
                     break;
                 case 2:
-                    System.out.print("Nome do concurso: ");
+                    System.out.print("Name contest: ");
                     contestName = scanner.nextLine();
                     contestRepository.search(contestName);
                     break;
                 case 3:
-                    System.out.print("Novo nome do concurso: ");
+                    System.out.print("ID Contest: ");
+                    UUID uuid1 = UUID.fromString(scanner.nextLine());
+                    System.out.print("New contest name: ");
                     String newContestName = scanner.nextLine();
-                    System.out.print("Nova quantidade de vagas: ");
+                    System.out.print("Type of tender (Public Contest/Internal Contest): ");
+                    contestType = scanner.nextLine();
+                    System.out.print("New Quantity of Vacancies: ");
                     int newQuantityVacancies = scanner.nextInt();
                     scanner.nextLine();
 
-                    if(contestType.equalsIgnoreCase("Concurso Público")){
-                        System.out.print("Número de questões: ");
+                    if(contestType.equalsIgnoreCase("Public Contest")){
+                        System.out.print("Number of questions: ");
                         int numberQuestion = scanner.nextInt();
                         scanner.nextLine();
 
-                        PublicContest publicContest1 = new PublicContest(newContestName, contestType, newQuantityVacancies, numberQuestion);
-                        contestRepository.update(publicContest1);
+                        PublicContest publicContest = new PublicContest(uuid1, newContestName, contestType, newQuantityVacancies, numberQuestion);
+                        contestRepository.update(uuid1, publicContest);
+                        contestRepository.update(uuid1, publicContest);
 
-                    }else if (contestType.equalsIgnoreCase("Concurso Interno")){
+                    }else if (contestType.equalsIgnoreCase("Internal Contest")){
+                        System.out.print("Number of questions: ");
                         int numberQuestion = scanner.nextInt();
 
-                        InternalContest internalContest = new InternalContest(newContestName, contestType, newQuantityVacancies, numberQuestion);
-                        contestRepository.update(internalContest);
+                        InternalContest internalContest = new InternalContest(uuid1, newContestName, contestType, newQuantityVacancies, numberQuestion);
+                        contestRepository.update(uuid1, internalContest);
                     }else {
-                        System.out.println("Tipo de concurso inválido.");
+                        System.out.println("Invalid contest type.");
                     }
                     break;
                 case 4:
-                    System.out.print("Nome do concurso: ");
-                    contestName = scanner.nextLine();
-                    contestRepository.delete(contestName);
+                    System.out.print("ID contest: ");
+                    UUID id = UUID.fromString(scanner.nextLine());
+                    contestRepository.delete(id);
                     break;
                 case 5:
                     contestRepository.listAll();
                     break;
                 case 6:
-                    contestRepository.countContestsByType("Concurso Público");
+                    contestRepository.countContestsByType("Public Contest");
                     break;
                 case 7:
-                    contestRepository.countContestsByType("Concurso Interno");
+                    contestRepository.countContestsByType("Internal Contest");
                     break;
                 case 8:
+                    System.out.print("Contest name: ");
+                    contestName = scanner.nextLine();
+                    contestRepository.viewApplicants(contestName);
+                    break;
+                case 9:
                     run = false;
                     break;
                 default:
-                    System.out.println("Opção inválida. Tente novamente.");
+                    System.out.println("Invalid option. Try again.");
             }
             System.out.println();
         }
-        System.out.println("Programa encerrado.");
+        System.out.println("Closed program.");
         scanner.close();
     }
 }

@@ -4,27 +4,17 @@ import Domain.ValueObject.Address;
 import Domain.ValueObject.Contact;
 
 public class Applicant {
-    private int id;
     private String name;
     private int age;
     private Address address;
     private Contact contact;
 
 
-    public Applicant(int id, String name, int age, Address address, Contact contact) {
-        this.id = id;
+    public Applicant(String name, int age, Address address, Contact contact) {
         this.name = name;
         this.age = age;
         this.address = address;
         this.contact = contact;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -59,4 +49,13 @@ public class Applicant {
         this.contact = contact;
     }
 
+    @Override
+    public String toString() {
+        return "Applicant{ " +
+                "Name: '" + name + '\'' +
+                ", Age: " + age +
+                ", Address: " + address +
+                ", contact: " + contact +
+                '}';
+    }
 }

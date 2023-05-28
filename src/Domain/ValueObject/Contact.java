@@ -21,6 +21,14 @@ public class Contact{
         return email;
     }
 
+    @Override
+    public String toString() {
+        return "Contact [" +
+                "Phone: " + phone +
+                ", Email: '" + email + '\'' +
+                ']';
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
