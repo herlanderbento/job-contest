@@ -6,13 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="3946726d-43b3-458a-80fe-75f30dda739c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/Entity/Applicant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Entity/Applicant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Domain/Entity/Contest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Entity/Contest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/Entity/InternalContest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Entity/InternalContest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/Entity/PublicContest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Entity/PublicContest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/Entity/Proof.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Entity/Exam.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Domain/Repository/RepositoryInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Repository/RepositoryInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/ValueObject/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/ValueObject/Address.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/ValueObject/Contact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/ValueObject/Contact.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Infra/Repositories/ContestRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infra/Repositories/ContestRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Infra/Tests/Tests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infra/Tests/Tests.java" afterDir="false" />
     </list>

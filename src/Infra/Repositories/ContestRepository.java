@@ -1,9 +1,6 @@
 package Infra.Repositories;
 
-import Domain.Entity.Applicant;
-import Domain.Entity.Contest;
-import Domain.Entity.InternalContest;
-import Domain.Entity.PublicContest;
+import Domain.Entity.*;
 import Domain.Repository.RepositoryInterface;
 import Domain.ValueObject.Address;
 import Domain.ValueObject.Contact;
@@ -11,13 +8,13 @@ import java.util.*;
 
 public class ContestRepository implements RepositoryInterface<Contest> {
 
+  Scanner scanner = new Scanner(System.in);
   List<Contest> contestRepository = new ArrayList<Contest>();
 
   @Override
   public void create(Contest entity) {
     contestRepository.add(entity);
 
-    Scanner scanner = new Scanner(System.in);
     System.out.print(
       "Do you want to register candidates for the contest? (Y/N): "
     );
@@ -64,13 +61,18 @@ public class ContestRepository implements RepositoryInterface<Contest> {
       if (contest.getId() == id) {
         contestRepository.set(index, entity);
         System.out.println("Contest updated successfully!");
+      }else {
+        System.out.println("Contest not found." + id);
       }
     }
-    System.out.println("Contest not found." + id);
+   ;
   }
 
   @Override
   public void search(String name) {
+    if (name.isEmpty()){
+      System.out.println("Contest name required");
+    }
     for (Contest contest : contestRepository) {
       if (contest.getName().equals(name)) {
         System.out.println("ID: " + contest.getId());
@@ -100,6 +102,65 @@ public class ContestRepository implements RepositoryInterface<Contest> {
     System.out.println("Contest deleted successfully!");
   }
 
+  @Override
+  public void takeTheExam(String contestName) {
+    if (contestName.isEmpty()){
+      System.out.println("Contest name required.");
+    }
+    for (Contest contest : contestRepository) {
+      if (contest.getName().equals(contestName)) {
+        Exam exam = contest.getExam();
+        if (exam != null) {
+          System.out.println(
+            "Taking the exam for the contest " + contestName + ":"
+          );
+          System.out.println("Date: " + exam.getDate());
+          System.out.println("Duration: " + exam.getDuration() + " minutes");
+          System.out.println("Description: " + exam.getDescription());
+
+          // ArrayList<String> applicantsAnswers = new ArrayList<>();
+
+          // for (int i = 0; i < exam.getNumberOfQuestions(); i++) {
+          //   System.out.print("Answer to the question " + (i + 1) + ": ");
+          //   String answer = scanner.nextLine();
+          //   applicantsAnswers.add(answer);
+          // }
+
+          // // Check correct answers and calculate score
+          // ArrayList<String> correctAnswers = new ArrayList<>();
+          // int score = 0;
+          // for (int i = 0; i < exam.getNumberOfQuestions(); i++) {
+          //   String applicantsAnswer = applicantsAnswers.get(i);
+          //   String correctAnswer = correctAnswers.get(i);
+          //   if (applicantsAnswer.equals(correctAnswer)) {
+          //     score++;
+          //   }
+          // }
+
+          // if (score >= 10) {
+          //   System.out.println(
+          //     "Congratulations! You are eligible for the contest" +
+          //     contestName +
+          //     "."
+          //   );
+          // } else {
+          //   System.out.println(
+          //     "Unfortunately, you did not reach the minimum score to be considered eligible for the contest " +
+          //     contestName +
+          //     "."
+          //   );
+          // }
+        } else {
+          System.out.println(
+            "The contest " + contestName + " does not have an event registered"
+          );
+          return;
+        }
+      }
+    }
+    System.out.println("Contest not found.");
+  }
+
   public void countContestsByType(String type) {
     int count = 0;
     for (Contest contest : contestRepository) {
@@ -111,6 +172,11 @@ public class ContestRepository implements RepositoryInterface<Contest> {
   }
 
   public void viewApplicants(String contestName) {
+
+    if (contestName.isEmpty()){
+      System.out.println("Contest not found.");
+    }
+
     for (Contest contest : contestRepository) {
       if (contest.getName().equals(contestName)) {
         ArrayList<Applicant> applicants = (ArrayList<Applicant>) contest.getApplicants();
@@ -142,11 +208,9 @@ public class ContestRepository implements RepositoryInterface<Contest> {
         }
       }
     }
-    System.out.println("Contest not found.");
   }
 
   private Applicant getDetailsApplicant() {
-    Scanner scanner = new Scanner(System.in);
     System.out.println("=== Menu Candidates ===");
 
     System.out.print("Name : ");

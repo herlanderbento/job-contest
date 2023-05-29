@@ -10,6 +10,7 @@ public class Contest{
     private String name;
     private String type;
     private int quantityVacancies;
+    private Exam exam;
     private List<Applicant> applicants;
 
     public Contest(UUID id, String name, String type, int quantityVacancies) {
@@ -18,6 +19,7 @@ public class Contest{
         this.type = type;
         this.quantityVacancies = quantityVacancies;
         this.applicants = new ArrayList<>();
+        this.exam = null;
     }
 
     public UUID getId() {
@@ -46,6 +48,14 @@ public class Contest{
 
     public int getQuantityVacancies() {
         return quantityVacancies;
+    }
+
+    public Exam getExam() {
+        return exam;
+    }
+
+    public void setExam(Exam exam) {
+        this.exam = exam;
     }
 
     public void setQuantityVacancies(int quantityVacancies) {

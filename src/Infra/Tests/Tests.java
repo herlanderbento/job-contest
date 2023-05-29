@@ -23,7 +23,8 @@ public class Tests {
             System.out.println("6. Count Public Contests");
             System.out.println("7. Count Internal Contests");
             System.out.println("8. View the List of Applicants");
-            System.out.println("9. Exit");
+            System.out.println("9. Make exam");
+            System.out.println("10. Exit");
             System.out.print("Select an option: ");
             int option = scanner.nextInt();
             scanner.nextLine();
@@ -40,6 +41,7 @@ public class Tests {
                     scanner.nextLine();
 
                     if(contestType.equalsIgnoreCase("Public Contest")){
+                        System.out.println("=== Public Contest ===");
                         System.out.print("Number of questions: ");
                         int numberQuestion = scanner.nextInt();
                         scanner.nextLine();
@@ -48,6 +50,7 @@ public class Tests {
                         contestRepository.create(publicContest);
 
                     }else if (contestType.equalsIgnoreCase("Internal Contest")){
+                        System.out.println("=== Internal Contest ===");
                         System.out.print("Number of questions: ");
                         int numberQuestion = scanner.nextInt();
                         InternalContest internalContest = new InternalContest(uuid, contestName, contestType, quantityVacancies, numberQuestion);
@@ -65,11 +68,11 @@ public class Tests {
                     System.out.print("ID Contest: ");
                     UUID uuid1 = UUID.fromString(scanner.nextLine());
                     System.out.print("New contest name: ");
-                    String newContestName = scanner.nextLine();
+                    contestName = scanner.nextLine();
                     System.out.print("Type of tender (Public Contest/Internal Contest): ");
                     contestType = scanner.nextLine();
                     System.out.print("New Quantity of Vacancies: ");
-                    int newQuantityVacancies = scanner.nextInt();
+                    quantityVacancies = scanner.nextInt();
                     scanner.nextLine();
 
                     if(contestType.equalsIgnoreCase("Public Contest")){
@@ -77,7 +80,7 @@ public class Tests {
                         int numberQuestion = scanner.nextInt();
                         scanner.nextLine();
 
-                        PublicContest publicContest = new PublicContest(uuid1, newContestName, contestType, newQuantityVacancies, numberQuestion);
+                        PublicContest publicContest = new PublicContest(uuid1, contestName, contestType, quantityVacancies, numberQuestion);
                         contestRepository.update(uuid1, publicContest);
                         contestRepository.update(uuid1, publicContest);
 
@@ -85,7 +88,7 @@ public class Tests {
                         System.out.print("Number of questions: ");
                         int numberQuestion = scanner.nextInt();
 
-                        InternalContest internalContest = new InternalContest(uuid1, newContestName, contestType, newQuantityVacancies, numberQuestion);
+                        InternalContest internalContest = new InternalContest(uuid1, contestName, contestType, quantityVacancies, numberQuestion);
                         contestRepository.update(uuid1, internalContest);
                     }else {
                         System.out.println("Invalid contest type.");
@@ -111,6 +114,11 @@ public class Tests {
                     contestRepository.viewApplicants(contestName);
                     break;
                 case 9:
+                    System.out.print("Contest name: ");
+                    contestName = scanner.nextLine();
+                    contestRepository.takeTheExam(contestName);
+                    break;
+                case 10:
                     run = false;
                     break;
                 default:
